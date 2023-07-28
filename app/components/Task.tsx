@@ -26,7 +26,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
     const handleEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
         setIsLoadingEdit(true)
-        const updatedTask = { id: task.id, text: taskToEdit, is_done: false }
+        const updatedTask = { ...task, text: taskToEdit }
         try {
             await editTodo(updatedTask)
             updateTask(updatedTask)
@@ -81,22 +81,20 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                                     <AiOutlineCheckCircle
                                         onClick={handleToggleDone}
                                         cursor="pointer"
-                                        size={25}
-                                        className="text-green-600"
+                                        className="text-green-600 lg:text-2xl"
                                     />
                                 ) : (
                                     <AiOutlineCloseCircle
                                         onClick={handleToggleDone}
                                         cursor="pointer"
-                                        size={25}
-                                        className="text-red-600"
+                                        className="text-red-600 lg:text-2xl"
                                     />
                                 )}
                             </>
                         )}
                     </td>
-                    <td className="flex gap-5">
-                        <FiEdit onClick={() => setOpenModalEdit(true)} cursor="pointer" size={25} className='text-blue-500' />
+                    <td className="flex gap-5 justify-center items-center p-5">
+                        <FiEdit onClick={() => setOpenModalEdit(true)} cursor="pointer" className='text-blue-500 lg:text-2xl' />
                         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit} >
                             <form onSubmit={handleEditTodo}>
                                 <h3 className='font-bold text-lg'>Edit task</h3>
@@ -106,7 +104,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                                 </div>
                             </form>
                         </Modal>
-                        <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" size={25} className='text-red-600' />
+                        <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" className='text-red-600 lg:text-2xl' />
                         <Modal modalOpen={openModalDelete} setModalOpen={setOpenModalDelete} >
                             <h3 className='font-bold text-lg'>Are you sure you want delete this task ?</h3>
                             <div className='modal-action'>

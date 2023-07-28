@@ -14,14 +14,19 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchTasks(selectedStatus);
-  }, [selectedStatus]);
+    fetchTasks();
+  }, []);
 
-  const fetchTasks = async (status: any) => {
+  const fetchTasks = async () => {
     setIsLoading(true);
-    const fetchedTasks = await getAllTasks(status);
-    setTasks(fetchedTasks);
-    setIsLoading(false);
+    try {
+      const allTasks = await getAllTasks();
+      setTasks(allTasks);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Function to update tasks state after adding a new task
@@ -41,21 +46,21 @@ export default function Home() {
 
   return (
     <main className="max-w-5xl mx-auto mt-4">
-      <div className="text-center my-5 flex flex-col gap-4">
-        <h1 className="text-5xl font-bold mb-3">Todo.Tamtam Next Js</h1>
+      <div className="text-center my-5 p-4 flex flex-col gap-4">
+        <h1 className="text-2xl lg:text-5xl font-bold mb-3">Todo.Tamtam Next Js</h1>
         <AddTask updateTasks={updateTasks} />
       </div>
-      <div className="flex space-x-5">
-        <div className="w-1/3 space-y-3">
+      <div className="flex flex-col p-4 lg:flex-row lg:space-x-5">
+        <div className="lg:w-1/3 space-y-3">
           <SideBar selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} isLoading={isLoading} />
         </div>
-        <div className="w-2/3">
+        <div className="lg:w-2/3">
           {isLoading ? (
             <div className="flex items-center justify-center h-64">
               <Loader /> {/*Display the loader while tasks are loading*/}
             </div>
           ) : (
-            <TodoList tasks={tasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} />
+            <TodoList tasks={tasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} selectedStatus={selectedStatus} />
           )}
         </div>
       </div>

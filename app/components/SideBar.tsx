@@ -1,23 +1,26 @@
-const SideBar = ({ selectedStatus, setSelectedStatus, isLoading } : any) => {
+const SideBar = ({ selectedStatus, setSelectedStatus, isLoading }: any) => {
+    const handleStatusFilter = (status: string) => {
+        setSelectedStatus(status); // Set the selected status
+    };
     return (
         <>
             <button
-                onClick={() => setSelectedStatus('all')}
-                className={`btn w-full btn-secondary ${selectedStatus === 'all' ? '' : 'btn-outline'}`}
+                onClick={() => handleStatusFilter("all")}
+                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'all' ? 'bg-purple-100' : ''}`}
                 disabled={isLoading}
             >
                 All
             </button>
             <button
-                onClick={() => setSelectedStatus('todo')}
-                className={`btn w-full btn-secondary ${selectedStatus === 'todo' ? '' : 'btn-outline'}`}
+                onClick={() => handleStatusFilter("todo")}
+                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'todo' ? 'bg-purple-100' : ''}`}
                 disabled={isLoading}
             >
                 Todo
             </button>
             <button
-                onClick={() => setSelectedStatus('done')}
-                className={`btn w-full btn-secondary ${selectedStatus === 'done' ? '' : 'btn-outline'}`}
+                onClick={() => handleStatusFilter("done")}
+                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'done' ? 'bg-purple-100' : ''}`}
                 disabled={isLoading}
             >
                 Done
