@@ -1,12 +1,12 @@
 {
   "tasks": [
     {
-      "text": "Complete a 30-minute workout routine.",
+      "text": "Complete a 30-minute workout routine",
       "is_done": true,
       "id": 1
     },
     {
-      "text": "Prepare a healthy and nutritious breakfast.",
+      "text": "Prepare a healthy and nutritious breakfast",
       "is_done": false,
       "id": 2
     },
