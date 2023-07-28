@@ -45,7 +45,7 @@ export default function Home() {
         <h1 className="text-5xl font-bold mb-3">Todo.Tamtam Next Js</h1>
         <AddTask updateTasks={updateTasks} />
       </div>
-      <div className="flex">
+      <div className="flex space-x-5">
         <div className="w-1/3 space-y-3">
           <SideBar selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} isLoading={isLoading} />
         </div>

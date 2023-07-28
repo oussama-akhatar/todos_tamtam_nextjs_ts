@@ -10,56 +10,64 @@ import { deleteTodo, editTodo } from "@/api"
 import Loader from "./Loader"
 
 interface TodoProps {
-    task: ITask;
-    deleteTask: (id: number) => void;
-    updateTask: (updatedTask: ITask) => void;
+    task: ITask
+    deleteTask: (id: number) => void
+    updateTask: (updatedTask: ITask) => void
 }
 
 const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
-    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
-    const [openModalDelete, setOpenModalDelete] = useState<boolean>(false);
-    const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [isLoadingEdit, setIsLoadingEdit] = useState<boolean>(false);
+    const [openModalEdit, setOpenModalEdit] = useState<boolean>(false)
+    const [openModalDelete, setOpenModalDelete] = useState<boolean>(false)
+    const [taskToEdit, setTaskToEdit] = useState<string>(task.text)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoadingEdit, setIsLoadingEdit] = useState<boolean>(false)
+    const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false)
 
     const handleEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
         setIsLoadingEdit(true)
-        const updatedTask = { id: task.id, text: taskToEdit, is_done: false };
+        const updatedTask = { id: task.id, text: taskToEdit, is_done: false }
         try {
             await editTodo(updatedTask)
             updateTask(updatedTask)
             setOpenModalEdit(false)
         } catch (error) {
-            console.error("Error updating task:", error);
+            console.error("Error updating task:", error)
         } finally {
             setIsLoadingEdit(false)
         }
     }
 
     const handleToggleDone = async () => {
-        setIsLoading(true); // Start loading when the checkmark is clicked
-        const updatedTask = { ...task, is_done: !task.is_done }; // Toggle the is_done property
+        setIsLoading(true) // Start loading when the checkmark is clicked
+        const updatedTask = { ...task, is_done: !task.is_done } // Toggle the is_done property
         try {
-            await editTodo(updatedTask);
-            updateTask(updatedTask); // Update the task in the state
+            await editTodo(updatedTask)
+            updateTask(updatedTask) // Update the task in the state
         } catch (error) {
             // Handle any error, e.g., show an error message
-            console.error("Error updating task:", error);
+            console.error("Error updating task:", error)
         } finally {
-            setIsLoading(false); // Stop loading after the request is completed (success or error)
+            setIsLoading(false) // Stop loading after the request is completed (success or error)
         }
-    };
+    }
 
     const handleDeleteTodo = async (id: number) => {
-        await deleteTodo(id)
-        deleteTask(task.id!); // Remove the task from the state
-        setOpenModalDelete(false)
+        setIsLoadingDelete(true)
+        try {
+            await deleteTodo(id)
+            deleteTask(task.id!) // Remove the task from the state
+            setOpenModalDelete(false)
+        } catch(error) {
+            console.log(error)
+        } finally {
+            setIsLoadingDelete(false)
+        }
     }
 
     return (
         <>
-            {isLoadingEdit
+            {isLoadingEdit || isLoadingDelete
                 ? <tr><td className=""><Loader size={20} /></td></tr>
                 : <tr key={task.id}>
                     <td className="w-full">{task.text}</td>

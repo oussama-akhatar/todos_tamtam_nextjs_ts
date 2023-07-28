@@ -1,14 +1,9 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Hassan",
-      "is_done": false
-    },
-    {
       "id": 2,
       "text": "Oussama",
-      "is_done": false
+      "is_done": true
     }
   ]
 }
