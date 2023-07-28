@@ -8,10 +8,12 @@ import { useRouter } from "next/navigation"
 import { deleteTodo, editTodo } from "@/api"
 
 interface TodoProps {
-    task: ITask
+    task: ITask;
+    deleteTask: (id: number) => void;
+    updateTask: (updatedTask: ITask) => void;
 }
 
-const Task = ({ task }: TodoProps) => {
+const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
     const [openModalEdit, setOpenModalEdit] = useState<boolean>(false);
     const [openModalDelete, setOpenModalDelete] = useState<boolean>(false);
     const [taskToEdit, setTaskToEdit] = useState<string>(task.text);
@@ -19,18 +21,16 @@ const Task = ({ task }: TodoProps) => {
 
     const handleEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
-        await editTodo({
-            id: task.id,
-            text: taskToEdit
-        })
+        const updatedTask = { id: task.id, text: taskToEdit, is_done: false };
+        await editTodo(updatedTask)
         setOpenModalEdit(false)
-        router.refresh()
+        updateTask(updatedTask)
     }
 
     const handleDeleteTodo = async (id: number) => {
         await deleteTodo(id)
+        deleteTask(task.id!); // Remove the task from the state
         setOpenModalDelete(false)
-        router.refresh()
     }
 
     return (
