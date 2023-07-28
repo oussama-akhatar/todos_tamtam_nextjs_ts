@@ -31,7 +31,7 @@ const TodoList = ({ tasks, deleteTask, updateTask, selectedStatus }: TodoListPro
             {filteredTasks.length === 0 ? (
                 <p className="text-xl text-center py-4">No tasks found.</p>
             ) : (
-                <table className="table">
+                <table className="table table-pin-rows">
                     <thead>
                         <tr className="lg:text-xl">
                             <th>Task</th>
