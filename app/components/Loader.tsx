@@ -1,7 +1,7 @@
-import { BounceLoader } from 'react-spinners';
+import { ClipLoader } from 'react-spinners';
 
-const Loader = () => {
-    return <BounceLoader color="#36d7b7" />
+const Loader = ({size} : any) => {
+    return <ClipLoader color="#36d7b7" size={size} />
 };
 
 export default Loader;
