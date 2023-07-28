@@ -17,6 +17,7 @@ const TodoList = ({ tasks, deleteTask, updateTask }: TodoListProps) => {
                     <thead>
                         <tr className="text-xl">
                             <th>Task</th>
+                            <th>isDone</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
