@@ -6,7 +6,7 @@ import { FormEventHandler, useState } from 'react'
 import { addTodo } from '@/api'
 import { useRouter } from 'next/navigation'
 
-const AddTask = () => {
+const AddTask = ({ updateTasks }: any) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [newTaskValue, setNewTaskValue] = useState<string>('')
   const router = useRouter()
@@ -14,17 +14,18 @@ const AddTask = () => {
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
-    await addTodo({
-      text: newTaskValue
-    })
+    const newTask = await addTodo({
+      text: newTaskValue,
+      is_done: false,
+    });
     setNewTaskValue("")
     setModalOpen(false)
-    router.refresh()
+    updateTasks(newTask); // Update tasks with the new task
   }
 
   return (
     <div>
-      <button onClick={() => { setModalOpen(true) }} className="btn btn-primary w-full">Add new task <AiOutlinePlus className="ml-2" size={18} /></button>
+      <button onClick={() => { setModalOpen(true) }} className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Add new task <AiOutlinePlus className="ml-2" size={18} /></button>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} >
         <form onSubmit={handleSubmitNewTodo}>
           <h3 className='font-bold text-lg'>Add new task</h3>

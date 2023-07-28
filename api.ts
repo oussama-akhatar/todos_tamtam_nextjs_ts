@@ -2,8 +2,16 @@ import { ITask } from "./types/task";
 
 const baseUrl = "http://localhost:9000";
 
-export const getAllTodos = async (): Promise<ITask[]> => {
-  const res = await fetch(`${baseUrl}/tasks`, { cache: "no-store" });
+export const getAllTasks = async (status?: string): Promise<ITask[]> => {
+  let url = `${baseUrl}/tasks`;
+
+  if (status === "todo") {
+    url += "?is_done=false";
+  } else if (status === "done") {
+    url += "?is_done=true";
+  }
+
+  const res = await fetch(url, { cache: "no-store" });
   const todos = await res.json();
   return todos;
 };
