@@ -1,9 +1,54 @@
 {
   "tasks": [
     {
-      "id": 2,
-      "text": "Oussama",
-      "is_done": true
+      "text": "Complete a 30-minute workout routine.",
+      "is_done": true,
+      "id": 1
+    },
+    {
+      "text": "Prepare a healthy and nutritious breakfast.",
+      "is_done": false,
+      "id": 2
+    },
+    {
+      "text": "Read a chapter from a book on personal development.",
+      "is_done": true,
+      "id": 3
+    },
+    {
+      "text": "Write a journal entry reflecting on your day and emotions.",
+      "is_done": true,
+      "id": 4
+    },
+    {
+      "text": "Research and learn a new skill or hobby, like playing a musical instrument or painting.",
+      "is_done": false,
+      "id": 5
+    },
+    {
+      "text": "Clean and organize a specific area in your home, like your closet or desk.",
+      "is_done": false,
+      "id": 6
+    },
+    {
+      "text": "Plan and prepare a balanced meal for dinner.",
+      "is_done": true,
+      "id": 7
+    },
+    {
+      "text": "Call or meet up with a friend you haven't spoken to in a while.",
+      "is_done": false,
+      "id": 8
+    },
+    {
+      "text": "Spend 15 minutes meditating or practicing mindfulness.",
+      "is_done": true,
+      "id": 9
+    },
+    {
+      "text": "Create a budget for the upcoming month and set financial goals.",
+      "is_done": false,
+      "id": 10
     }
   ]
 }
