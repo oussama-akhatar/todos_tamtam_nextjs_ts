@@ -1,16 +1,11 @@
 "use client"
-
-import { AiOutlinePlus } from 'react-icons/ai'
 import Modal from './Modal'
 import { FormEventHandler, useState } from 'react'
 import { addTodo } from '@/api'
-import { useRouter } from 'next/navigation'
 
 const AddTask = ({ updateTasks }: any) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [newTaskValue, setNewTaskValue] = useState<string>('')
-  const router = useRouter()
-
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
@@ -25,7 +20,7 @@ const AddTask = ({ updateTasks }: any) => {
 
   return (
     <div>
-      <button onClick={() => { setModalOpen(true) }} className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Add new task <AiOutlinePlus className="ml-2" size={18} /></button>
+      <button onClick={() => { setModalOpen(true) }} className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Add new task</button>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} >
         <form onSubmit={handleSubmitNewTodo}>
           <h3 className='font-bold text-lg'>Add new task</h3>
