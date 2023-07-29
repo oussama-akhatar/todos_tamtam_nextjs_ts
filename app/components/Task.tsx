@@ -5,7 +5,6 @@ import { FiEdit, FiTrash2 } from 'react-icons/fi'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 import Modal from "./Modal"
 import { useState, FormEventHandler } from 'react'
-import { useRouter } from "next/navigation"
 import { deleteTodo, editTodo } from "@/api"
 import Loader from "./Loader"
 
@@ -50,6 +49,8 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
         } finally {
             setIsLoading(false) // Stop loading after the request is completed (success or error)
         }
+
+
     }
 
     const handleDeleteTodo = async (id: number) => {
@@ -58,10 +59,21 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
             await deleteTodo(id)
             deleteTask(task.id!) // Remove the task from the state
             setOpenModalDelete(false)
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         } finally {
             setIsLoadingDelete(false)
+        }
+    }
+
+    const handleFormatDate = (dateString: string | undefined): any => {
+        const date = new Date(dateString!);
+        const today = new Date();
+
+        if (date.toDateString() === today.toDateString()) {
+            return "Today at " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        } else {
+            return date.getDate() + "/" + date.getMonth()  + "/" + date.getFullYear() + " at "+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         }
     }
 
@@ -70,7 +82,10 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
             {isLoadingEdit || isLoadingDelete
                 ? <tr><td className=""><Loader size={20} /></td></tr>
                 : <tr key={task.id}>
-                    <td className="w-full">{task.text}</td>
+                    <td className="w-full">
+                        <span className="text-2xl">{task.text}</span>
+                        <br />
+                        <span className="text-xs">{handleFormatDate(task.created_at?.toString())}</span></td>
                     <td>
                         {/* Conditionally render the checkmark or the loader based on isLoading */}
                         {isLoading ? (
@@ -93,7 +108,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                             </>
                         )}
                     </td>
-                    <td className="flex gap-5 justify-center items-center p-5">
+                    <td className="flex gap-5 justify-center items-center p-8">
                         <FiEdit onClick={() => setOpenModalEdit(true)} cursor="pointer" className='text-blue-500 lg:text-2xl' />
                         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit} >
                             <form onSubmit={handleEditTodo}>

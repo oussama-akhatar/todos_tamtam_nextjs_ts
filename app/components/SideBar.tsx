@@ -1,30 +1,38 @@
-const SideBar = ({ selectedStatus, setSelectedStatus, isLoading }: any) => {
+import { BsCalendar, BsCalendarCheck, BsCalendarPlus } from 'react-icons/bs'
+
+const SideBar = ({ selectedStatus, setSelectedStatus }: any) => {
     const handleStatusFilter = (status: string) => {
         setSelectedStatus(status); // Set the selected status
     };
+    console.log(selectedStatus);
     return (
         <>
-            <button
-                onClick={() => handleStatusFilter("all")}
-                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'all' ? 'bg-purple-100' : ''}`}
-                disabled={isLoading}
-            >
-                All
-            </button>
-            <button
-                onClick={() => handleStatusFilter("todo")}
-                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'todo' ? 'bg-purple-100' : ''}`}
-                disabled={isLoading}
-            >
-                Todo
-            </button>
-            <button
-                onClick={() => handleStatusFilter("done")}
-                className={`btn w-full bg-white text-purple-600 hover:bg-purple-100 ${selectedStatus === 'done' ? 'bg-purple-100' : ''}`}
-                disabled={isLoading}
-            >
-                Done
-            </button>
+            <div className="space-y-4">
+                <button
+                    onClick={() => handleStatusFilter("all")}
+                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'all' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                >
+                    <BsCalendar className="text-2xl me-3" /> <span className="text-xl">All</span>
+                </button>
+                <button
+                    onClick={() => handleStatusFilter("todo")}
+                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'todo' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                >
+                    <BsCalendarPlus className="text-2xl me-3" /> <span className="text-xl">Todo</span>
+                </button>
+                <button
+                    onClick={() => handleStatusFilter("done")}
+                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'done' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                >
+                    <BsCalendarCheck className="text-2xl me-3" /><span className="text-xl">Done</span>
+                </button>
+            </div>
+
+
+            <div className="flex items-baseline space-x-2">
+                <img src='/next.svg' alt='next logo' className='w-1/4' />
+                <span>All rights are reserved &copy;</span>
+            </div>
         </>
     );
 };
