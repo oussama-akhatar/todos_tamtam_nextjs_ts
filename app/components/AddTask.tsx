@@ -2,25 +2,34 @@
 import Modal from './Modal'
 import { FormEventHandler, useState } from 'react'
 import { addTodo } from '@/api'
+import {MdAdd} from 'react-icons/md'
 
-const AddTask = ({ updateTasks }: any) => {
+const AddTask = ({ updateTasks, isLoading, setIsLoading }: any) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [newTaskValue, setNewTaskValue] = useState<string>('')
 
   const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
-    const newTask = await addTodo({
-      text: newTaskValue,
-      is_done: false,
-    });
-    setNewTaskValue("")
+    setIsLoading(true)
     setModalOpen(false)
-    updateTasks(newTask); // Update tasks with the new task
+    try {
+      const newTask = await addTodo({
+        text: newTaskValue,
+        is_done: false,
+        created_at: new Date()
+      });
+      updateTasks(newTask); // Update tasks with the new task
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setNewTaskValue("")
+      setIsLoading(false)
+    }
   }
 
   return (
-    <div>
-      <button onClick={() => { setModalOpen(true) }} className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Add new task</button>
+    <>
+      <button onClick={() => { setModalOpen(true) }} className="btn text-white bg-blue-600 hover:bg-blue-700 text-xl"><MdAdd /></button>
       <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} >
         <form onSubmit={handleSubmitNewTodo}>
           <h3 className='font-bold text-lg'>Add new task</h3>
@@ -30,7 +39,7 @@ const AddTask = ({ updateTasks }: any) => {
           </div>
         </form>
       </Modal>
-    </div>
+    </>
   )
 }
 
