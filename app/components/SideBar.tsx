@@ -10,19 +10,19 @@ const SideBar = ({ selectedStatus, setSelectedStatus }: any) => {
             <div className="space-y-4">
                 <button
                     onClick={() => handleStatusFilter("all")}
-                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'all' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                    className={`btn w-full flex justify-start hover:bg-blue-100 hover:text-blue-600 ${selectedStatus === 'all' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-gray-500'}`}
                 >
                     <BsCalendar className="text-2xl me-3" /> <span className="text-xl">All</span>
                 </button>
                 <button
                     onClick={() => handleStatusFilter("todo")}
-                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'todo' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                    className={`btn w-full flex justify-start hover:bg-blue-100 hover:text-blue-600 ${selectedStatus === 'todo' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-gray-500'}`}
                 >
                     <BsCalendarPlus className="text-2xl me-3" /> <span className="text-xl">Todo</span>
                 </button>
                 <button
                     onClick={() => handleStatusFilter("done")}
-                    className={`btn w-full flex justify-start hover:bg-purple-100 hover:text-purple-600 ${selectedStatus === 'done' ? 'bg-purple-100 text-purple-600' : 'bg-slate-100 text-gray-500'}`}
+                    className={`btn w-full flex justify-start hover:bg-blue-100 hover:text-blue-600 ${selectedStatus === 'done' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-gray-500'}`}
                 >
                     <BsCalendarCheck className="text-2xl me-3" /><span className="text-xl">Done</span>
                 </button>

@@ -108,7 +108,7 @@ export default function Home() {
         </div>
         <div className="lg:w-2/3">
           {isLoading
-            ? <div className="flex items-center justify-center h-full">
+            ? <div className="flex items-center justify-center" style={{height: '700px'}}>
               <Loader /> {/*Display the loader while tasks are loading*/}
             </div> : (
               <TodoList tasks={tasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} selectedStatus={selectedStatus} />
