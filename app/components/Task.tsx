@@ -88,7 +88,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
         if (date.toDateString() === today.toDateString()) {
             return "Today at " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
         } else {
-            return ("0" + date.getDate()).slice(-2) + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + date.getFullYear() + " at " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
+            return ("0" + date.getDate()).slice(-2) + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getFullYear() + " at " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
         }
     }
 
@@ -99,8 +99,8 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                 : <tr key={task.id} className={task.is_deleted ? "bg-slate-100" : ""}>
                     <td className="w-full">
                         <div className="flex items-center">
-                        <span className="text-2xl">{task.text}</span>
-                        {task.is_deleted ? <span className="ms-1 bg-red-600 text-white text-xs rounded-full py-1 px-2">Deleted</span> : null}
+                            <span className="text-2xl">{task.text}</span>
+                            {task.is_deleted ? <span className="ms-1 bg-red-600 text-white text-xs rounded-full py-1 px-2">Deleted</span> : null}
                         </div>
                         {/* <br /> */}
                         <span className="text-xs">{handleFormatDate(task.created_at?.toString())}</span></td>
@@ -126,8 +126,14 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                             </>
                         )}
                     </td>
-                    <td className="flex gap-5 justify-center items-center p-8">
-                        <FiEdit onClick={() => setOpenModalEdit(true)} cursor="pointer" className='text-blue-500 lg:text-2xl' />
+                    <td className={`flex gap-5 items-center p-8 ${task.is_deleted ? "justify-end" : "justify-center"}`}>
+                        {
+                            !task.is_deleted
+                                ? <FiEdit onClick={() => setOpenModalEdit(true)} cursor="pointer" className='text-blue-500 lg:text-2xl' />
+                                : null
+                        }
+
+
                         <Modal modalOpen={openModalEdit} setModalOpen={setOpenModalEdit} >
                             <form onSubmit={handleEditTodo}>
                                 <h3 className='font-bold text-lg'>Edit task</h3>
@@ -138,11 +144,11 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                             </form>
                         </Modal>
                         {
-                            !task.is_deleted 
-                            ? <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" className='text-red-600 lg:text-2xl' />
-                            : <BiUndo onClick={() => handleUndoDeleteTodo()} cursor="pointer" className='text-green-600 lg:text-2xl' />
+                            !task.is_deleted
+                                ? <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" className='text-red-600 lg:text-2xl' />
+                                : <BiUndo onClick={() => handleUndoDeleteTodo()} cursor="pointer" className='text-green-600 lg:text-2xl self-end' />
                         }
-                        
+
                         <Modal modalOpen={openModalDelete} setModalOpen={setOpenModalDelete} >
                             <h3 className='font-bold text-lg'>Are you sure you want delete this task ?</h3>
                             <div className='modal-action'>
