@@ -16,6 +16,7 @@ const AddTask = ({ updateTasks, isLoading, setIsLoading }: any) => {
       const newTask = await addTodo({
         text: newTaskValue,
         is_done: false,
+        is_deleted: false,
         created_at: new Date()
       });
       updateTasks(newTask); // Update tasks with the new task

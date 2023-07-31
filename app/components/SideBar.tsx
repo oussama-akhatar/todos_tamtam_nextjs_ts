@@ -1,4 +1,4 @@
-import { BsCalendar, BsCalendarCheck, BsCalendarPlus } from 'react-icons/bs'
+import { BsCalendar, BsCalendarCheck, BsCalendarPlus, BsTrash3 } from 'react-icons/bs'
 
 const SideBar = ({ selectedStatus, setSelectedStatus }: any) => {
     const handleStatusFilter = (status: string) => {
@@ -25,6 +25,12 @@ const SideBar = ({ selectedStatus, setSelectedStatus }: any) => {
                     className={`btn w-full flex justify-start hover:bg-blue-100 hover:text-blue-600 ${selectedStatus === 'done' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-gray-500'}`}
                 >
                     <BsCalendarCheck className="text-2xl me-3" /><span className="text-xl">Done</span>
+                </button>
+                <button
+                    onClick={() => handleStatusFilter("deleted")}
+                    className={`btn w-full flex justify-start hover:bg-blue-100 hover:text-blue-600 ${selectedStatus === 'deleted' ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-gray-500'}`}
+                >
+                    <BsTrash3 className="text-2xl me-3" /><span className="text-xl">Deleted</span>
                 </button>
             </div>
 

@@ -34,6 +34,8 @@ const TodoList = ({ tasks, deleteTask, updateTask, selectedStatus }: TodoListPro
             setFilteredTasks(tasks.filter((task) => !task.is_done));
         } else if (selectedStatus === "done") {
             setFilteredTasks(tasks.filter((task) => task.is_done));
+        } else if (selectedStatus === "deleted") {
+            setFilteredTasks(tasks.filter((task) => task.is_deleted));
         }
     };
 
