@@ -65,7 +65,7 @@ export default function Home() {
   }
 
   const handleDeleteTask = (id: any) => {
-    setTasks(tasks.filter((task: any) => task.id !== id))
+    // setTasks(tasks.filter((task: any) => task.id !== id))
     toast.success('Task is Deleted!', {
       position: "bottom-left",
       autoClose: 2000,

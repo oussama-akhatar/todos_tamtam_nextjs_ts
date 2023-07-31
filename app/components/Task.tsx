@@ -2,7 +2,8 @@
 
 import { ITask } from "@/types/task"
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
+import { AiOutlineCheckCircle, AiOutlineCloseCircle, AiOutlineUndo } from 'react-icons/ai'
+import { BiUndo } from 'react-icons/bi'
 import Modal from "./Modal"
 import { useState, FormEventHandler } from 'react'
 import { deleteTodo, editTodo } from "@/api"
@@ -53,12 +54,26 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
 
     }
 
-    const handleDeleteTodo = async (id: number) => {
+    const handleDeleteTodo = async () => {
         setIsLoadingDelete(true)
         try {
-            await deleteTodo(id)
-            deleteTask(task.id!) // Remove the task from the state
+            await deleteTodo({ ...task, is_deleted: true })
+            // deleteTask(task.id!) // Remove the task from the state
+            task.is_deleted = true
             setOpenModalDelete(false)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoadingDelete(false)
+        }
+    }
+
+    const handleUndoDeleteTodo = async () => {
+        setIsLoadingDelete(true)
+        try {
+            await deleteTodo({ ...task, is_deleted: false })
+            updateTask(task) // Remove the task from the state
+            task.is_deleted = false
         } catch (error) {
             console.log(error)
         } finally {
@@ -73,7 +88,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
         if (date.toDateString() === today.toDateString()) {
             return "Today at " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
         } else {
-            return ("0" + date.getDate()).slice(-2) + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + date.getFullYear() + " " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
+            return ("0" + date.getDate()).slice(-2) + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + date.getFullYear() + " at " + ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2) + ":" + ("0" + date.getSeconds()).slice(-2);
         }
     }
 
@@ -81,10 +96,13 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
         <>
             {isLoadingEdit || isLoadingDelete
                 ? <tr><td className=""><Loader size={20} /></td></tr>
-                : <tr key={task.id}>
+                : <tr key={task.id} className={task.is_deleted ? "bg-slate-100" : ""}>
                     <td className="w-full">
+                        <div className="flex items-center">
                         <span className="text-2xl">{task.text}</span>
-                        <br />
+                        {task.is_deleted ? <span className="ms-1 bg-red-600 text-white text-xs rounded-full py-1 px-2">Deleted</span> : null}
+                        </div>
+                        {/* <br /> */}
                         <span className="text-xs">{handleFormatDate(task.created_at?.toString())}</span></td>
                     <td>
                         {/* Conditionally render the checkmark or the loader based on isLoading */}
@@ -115,15 +133,20 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                                 <h3 className='font-bold text-lg'>Edit task</h3>
                                 <div className='modal-action'>
                                     <input value={taskToEdit} onChange={(e) => setTaskToEdit(e.target.value)} type="text" placeholder="Type here" className="input input-bordered w-full" />
-                                    <button className='btn' type='submit'>Submit</button>
+                                    <button className='btn' type='submit'>Edit</button>
                                 </div>
                             </form>
                         </Modal>
-                        <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" className='text-red-600 lg:text-2xl' />
+                        {
+                            !task.is_deleted 
+                            ? <FiTrash2 onClick={() => setOpenModalDelete(true)} cursor="pointer" className='text-red-600 lg:text-2xl' />
+                            : <BiUndo onClick={() => handleUndoDeleteTodo()} cursor="pointer" className='text-green-600 lg:text-2xl' />
+                        }
+                        
                         <Modal modalOpen={openModalDelete} setModalOpen={setOpenModalDelete} >
                             <h3 className='font-bold text-lg'>Are you sure you want delete this task ?</h3>
                             <div className='modal-action'>
-                                <button className='btn' onClick={() => handleDeleteTodo(task.id!)} >Yes</button>
+                                <button className='btn' onClick={() => handleDeleteTodo()} >Yes</button>
                             </div>
                         </Modal>
                     </td>
