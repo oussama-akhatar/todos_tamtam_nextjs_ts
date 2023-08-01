@@ -4,7 +4,7 @@ import { FormEventHandler, useState } from 'react'
 import { addTodo } from '@/api'
 import {MdAdd} from 'react-icons/md'
 
-const AddTask = ({ updateTasks, isLoading, setIsLoading }: any) => {
+const AddTask = ({ updateTasks, setIsLoading }: any) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [newTaskValue, setNewTaskValue] = useState<string>('')
 

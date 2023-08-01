@@ -106,7 +106,7 @@ export default function Home() {
       <div className="text-center mt-5 p-4 flex flex-col gap-4">
         <Header>
           <input type='text' value={searchedTask} className='input input-bordered w-72' placeholder="Search tasks" onChange={(e) => setSearchedTask(e.target.value)} />
-          <AddTask updateTasks={updateTasks} isLoading={isLoading} setIsLoading={setIsLoading} />
+          <AddTask updateTasks={updateTasks} setIsLoading={setIsLoading} />
         </Header>
       </div>
       <div className="flex flex-col p-4 lg:flex-row lg:space-x-5">
