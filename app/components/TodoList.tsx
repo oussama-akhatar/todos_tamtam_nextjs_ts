@@ -3,7 +3,6 @@
 import { ITask } from "@/types/task";
 import Task from "./Task";
 import { useState, useEffect } from "react";
-import Loader from "./Loader";
 
 interface TodoListProps {
     tasks: ITask[];
