@@ -15,6 +15,7 @@ export default function Home() {
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [isLoading, setIsLoading] = useState(true)
   const [modalOpen, setModalOpen] = useState(false)
+  const [searchedTask, setSearchedTask] = useState('')
 
   useEffect(() => {
     fetchTasks()
@@ -39,9 +40,10 @@ export default function Home() {
     try {
       // Delete all tasks one by one (you can also add a batch delete endpoint in the API)
       for (const task of tasks) {
-        await deleteTodo(task.id!)
+        await deleteTodo({ ...task, is_deleted: true })
+        task.is_deleted = true
       }
-      setTasks([]) // Clear the tasks in the state
+      // setTasks([]) // Clear the tasks in the state
     } catch (error) {
       console.error("Error deleting tasks:", error)
     } finally {
@@ -94,11 +96,16 @@ export default function Home() {
     })
   }
 
+  const filteredTasks = tasks.filter((task : any) =>
+    task.text.toLowerCase().includes(searchedTask.toLowerCase())
+  );
+
   return (
     <main className="max-w-5xl mx-auto pt-4">
       <ToastContainer />
       <div className="text-center mt-5 p-4 flex flex-col gap-4">
         <Header>
+          <input type='text' value={searchedTask} className='input input-bordered w-72' placeholder="Search tasks" onChange={(e) => setSearchedTask(e.target.value)} />
           <AddTask updateTasks={updateTasks} isLoading={isLoading} setIsLoading={setIsLoading} />
         </Header>
       </div>
@@ -111,7 +118,7 @@ export default function Home() {
             ? <div className="flex items-center justify-center" style={{height: '700px'}}>
               <Loader /> {/*Display the loader while tasks are loading*/}
             </div> : (
-              <TodoList tasks={tasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} selectedStatus={selectedStatus} />
+              <TodoList tasks={filteredTasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} selectedStatus={selectedStatus} />
             )}
           <button className='btn text-white bg-red-600 hover:bg-red-700 w-full mt-4' onClick={() => setModalOpen(true)}>Delete All</button>
           <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} >
