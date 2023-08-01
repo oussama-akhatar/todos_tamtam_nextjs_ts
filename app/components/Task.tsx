@@ -95,7 +95,7 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
     return (
         <>
             {isLoadingEdit || isLoadingDelete
-                ? <tr><td className=""><Loader size={20} /></td></tr>
+                ? <tr><td className=""><Loader size={20} className="my-4" /></td></tr>
                 : <tr key={task.id} className={task.is_deleted ? "bg-slate-100" : ""}>
                     <td className="w-full">
                         <div className="flex items-center">

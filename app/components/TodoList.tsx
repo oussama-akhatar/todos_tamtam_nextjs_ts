@@ -1,4 +1,5 @@
 "use client"
+
 import { ITask } from "@/types/task";
 import Task from "./Task";
 import { useState, useEffect } from "react";
@@ -50,8 +51,8 @@ const TodoList = ({ tasks, deleteTask, updateTask, selectedStatus }: TodoListPro
                         <thead>
                             <tr className="lg:text-xl">
                                 <th>Task</th>
-                                <th>isDone</th>
-                                <th>Actions</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
