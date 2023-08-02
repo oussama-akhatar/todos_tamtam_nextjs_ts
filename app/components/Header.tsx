@@ -5,7 +5,7 @@ const Header = ({ children }: any) => {
                 <span>Todo.Tamtam</span>
                 <img src='/ts.svg' alt='next logo' className='cursor-pointer w-8' />
             </h1>
-            <div className='flex'>
+            <div className='flex justify-center items-center'>
                 {children}
             </div>
         </div>
