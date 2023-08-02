@@ -3,7 +3,7 @@
     {
       "text": "Add a task",
       "is_done": false,
-      "is_deleted": false,
+      "is_deleted": true,
       "created_at": "2023-07-29T00:02:50.845Z",
       "id": 1
     },
@@ -17,7 +17,7 @@
     {
       "text": "Update a task",
       "is_done": false,
-      "is_deleted": false,
+      "is_deleted": true,
       "created_at": "2023-07-29T00:03:50.312Z",
       "id": 3
     },

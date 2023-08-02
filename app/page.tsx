@@ -9,6 +9,7 @@ import Loader from './components/Loader'
 import Modal from './components/Modal'
 import { ToastContainer, toast } from "react-toastify"
 import Header from './components/Header'
+import { Input, Button } from '@material-tailwind/react'
 
 export default function Home() {
   const [tasks, setTasks] = useState<any>([])
@@ -96,7 +97,7 @@ export default function Home() {
     })
   }
 
-  const filteredTasks = tasks.filter((task : any) =>
+  const filteredTasks = tasks.filter((task: any) =>
     task.text.toLowerCase().includes(searchedTask.toLowerCase())
   );
 
@@ -105,7 +106,9 @@ export default function Home() {
       <ToastContainer />
       <div className="text-center mt-5 p-4 flex flex-col gap-4">
         <Header>
-          <input type='text' value={searchedTask} className='input input-bordered w-72 mr-3' placeholder="Search tasks" onChange={(e) => setSearchedTask(e.target.value)} />
+          <div className="w-72 mr-2">
+            <Input label="Search tasks" size='lg' value={searchedTask} onChange={(e) => setSearchedTask(e.target.value)} />
+          </div>
           <AddTask updateTasks={updateTasks} setIsLoading={setIsLoading} />
         </Header>
       </div>
@@ -115,12 +118,13 @@ export default function Home() {
         </div>
         <div className="lg:w-2/3">
           {isLoading
-            ? <div className="flex items-center justify-center" style={{height: '700px'}}>
+            ? <div className="flex items-center justify-center" style={{ height: '700px' }}>
               <Loader /> {/*Display the loader while tasks are loading*/}
             </div> : (
               <TodoList tasks={filteredTasks} deleteTask={handleDeleteTask} updateTask={handleUpdateTask} selectedStatus={selectedStatus} />
             )}
-          <button className='btn text-white bg-red-600 hover:bg-red-700 w-full mt-4' onClick={() => setModalOpen(true)}>Delete All</button>
+          {/* <button className='btn text-white bg-red-600 hover:bg-red-700 w-full mt-4' onClick={() => setModalOpen(true)}>Delete All</button> */}
+          <Button variant="gradient" color="red" onClick={() => setModalOpen(true)} className='mt-4' size="lg" fullWidth>Delete All</Button>
           <Modal modalOpen={modalOpen} setModalOpen={setModalOpen} >
             <form onSubmit={handleDeleteAllTasks}>
               <h3 className='font-bold text-lg'>Are you sure to delete All the tasks ?</h3>
