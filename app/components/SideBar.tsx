@@ -35,7 +35,7 @@ const SideBar = ({ selectedStatus, setSelectedStatus }: any) => {
             </div>
 
 
-            <div className="flex items-baseline space-x-2">
+            <div className="flex justify-center lg:justify-start my-6 items-baseline space-x-2">
                 <img src='/next.svg' alt='next logo' className='w-1/4' />
                 <span>&copy; 2023 Vercel, Inc.</span>
             </div>

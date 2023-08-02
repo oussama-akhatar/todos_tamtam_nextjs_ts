@@ -101,16 +101,16 @@ export default function Home() {
   );
 
   return (
-    <main className="max-w-5xl mx-auto pt-4">
+    <main className="max-w-5xl mx-auto pt-4 bg-slate-50">
       <ToastContainer />
       <div className="text-center mt-5 p-4 flex flex-col gap-4">
         <Header>
-          <input type='text' value={searchedTask} className='input input-bordered w-72' placeholder="Search tasks" onChange={(e) => setSearchedTask(e.target.value)} />
+          <input type='text' value={searchedTask} className='input input-bordered w-72 mr-3' placeholder="Search tasks" onChange={(e) => setSearchedTask(e.target.value)} />
           <AddTask updateTasks={updateTasks} setIsLoading={setIsLoading} />
         </Header>
       </div>
       <div className="flex flex-col p-4 lg:flex-row lg:space-x-5">
-        <div className="lg:w-1/3 space-y-3 flex flex-col justify-between">
+        <div className="lg:w-1/3 flex flex-col justify-between">
           <SideBar selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} isLoading={isLoading} setIsLoading={setIsLoading} />
         </div>
         <div className="lg:w-2/3">
