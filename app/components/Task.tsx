@@ -103,7 +103,8 @@ const Task = ({ task, deleteTask, updateTask }: TodoProps) => {
                             {task.is_deleted ? <span className="ms-1 bg-red-600 text-white text-xs rounded-full py-1 px-2">Deleted</span> : null}
                         </div>
                         {/* <br /> */}
-                        <span className="text-xs">{handleFormatDate(task.created_at?.toString())}</span></td>
+                        <span className="text-xs">{handleFormatDate(task.created_at?.toString())}</span>
+                    </td>
                     <td>
                         {/* Conditionally render the checkmark or the loader based on isLoading */}
                         {isLoading ? (

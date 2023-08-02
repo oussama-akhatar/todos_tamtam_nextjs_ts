@@ -9,7 +9,7 @@
     },
     {
       "text": "Delete a task",
-      "is_done": true,
+      "is_done": false,
       "is_deleted": false,
       "created_at": "2023-07-29T00:03:35.193Z",
       "id": 2
@@ -24,7 +24,7 @@
     {
       "text": "Task",
       "is_done": true,
-      "is_deleted": true,
+      "is_deleted": false,
       "created_at": "2023-07-29T00:24:22.284Z",
       "id": 4
     },
